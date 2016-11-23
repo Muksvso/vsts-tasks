@@ -16,6 +16,7 @@ let answers = <mockanswer.TaskLibAnswers> {
 };
 answers.checkPath[path.normalize('/srcDir')] = true;
 answers.find[path.normalize('/srcDir')] = [
+    path.normalize('/srcDir'),
     path.normalize('/srcDir/someOtherDir'),
     path.normalize('/srcDir/someOtherDir/file1.file'),
     path.normalize('/srcDir/someOtherDir/file2.file'),
