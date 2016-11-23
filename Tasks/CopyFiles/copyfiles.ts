@@ -17,8 +17,8 @@ let flattenFolders: boolean = tl.getBoolInput('flattenFolders', false);
 sourceFolder = path.normalize(sourceFolder);
 
 let allPaths: string[] = tl.find(sourceFolder); // default find options (follow sym links)
-let matchedPaths: string[] = tl.match(allPaths, contents) // default match options
-let matchedFiles: string[] = matchedPaths.filter((path: string) => !tl.stats(path).isDirectory()); // filter-out directories
+let matchedPaths: string[] = tl.match(allPaths, contents, sourceFolder); // default match options
+let matchedFiles: string[] = matchedPaths.filter((itemPath: string) => !tl.stats(itemPath).isDirectory()); // filter-out directories
 
 // copy the files to the target folder
 console.log(tl.loc('FoundNFiles', matchedFiles.length));

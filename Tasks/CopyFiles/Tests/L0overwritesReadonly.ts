@@ -13,29 +13,25 @@ runner.setInput('Overwrite', 'true');
 let answers = <mockanswer.TaskLibAnswers> {
     checkPath: { },
     find: { },
-    match: { }
 };
 answers.checkPath[path.normalize('/srcDir')] = true;
 answers.find[path.normalize('/srcDir')] = [
-    '/srcDir',
-    '/srcDir/someOtherDir',
-    '/srcDir/someOtherDir/file1.file',
-    '/srcDir/someOtherDir/file2.file',
-];
-answers.match['**'] = [
-    '/srcDir/someOtherDir/file1.file',
-    '/srcDir/someOtherDir/file2.file',
+    path.normalize('/srcDir'),
+    path.normalize('/srcDir/someOtherDir'),
+    path.normalize('/srcDir/someOtherDir/file1.file'),
+    path.normalize('/srcDir/someOtherDir/file2.file'),
 ];
 runner.setAnswers(answers);
-runner.registerMockExport('stats', (p: string): any => {
-    switch (p) {
-        case '/srcDir/someOtherDir':
-        case path.join('/destDir', 'someOtherDir'):
+runner.registerMockExport('stats', (itemPath: string): any => {
+    console.log('stats ' + itemPath);
+    switch (itemPath) {
+        case path.normalize('/srcDir/someOtherDir'):
+        case path.normalize('/destDir/someOtherDir'):
             return { isDirectory: () => true };
-        case '/srcDir/someOtherDir/file1.file':
-        case '/srcDir/someOtherDir/file2.file':
+        case path.normalize('/srcDir/someOtherDir/file1.file'):
+        case path.normalize('/srcDir/someOtherDir/file2.file'):
             return { isDirectory: () => false };
-        case path.join('/destDir', 'someOtherDir', 'file1.file'):
+        case path.normalize('/destDir/someOtherDir/file1.file'):
             return {
                 isDirectory: () => false,
                 mode: (4 << 6) + (4 << 3) + 4, // r--r--r--
