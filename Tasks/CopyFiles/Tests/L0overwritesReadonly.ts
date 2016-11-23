@@ -6,24 +6,23 @@ import path = require('path');
 let taskPath = path.join(__dirname, '..', 'copyfiles.js');
 let runner: mockrun.TaskMockRunner = new mockrun.TaskMockRunner(taskPath);
 runner.setInput('Contents', '**');
-runner.setInput('SourceFolder', '/srcDir');
-runner.setInput('TargetFolder', '/destDir');
+runner.setInput('SourceFolder', path.normalize('/srcDir'));
+runner.setInput('TargetFolder', path.normalize('/destDir'));
 runner.setInput('CleanTargetFolder', 'false');
 runner.setInput('Overwrite', 'true');
 let answers = <mockanswer.TaskLibAnswers> {
-    checkPath: {
-        '/srcDir': true
-    },
-    find: {
-        '/srcDir': [
-            '/srcDir/someOtherDir',
-            '/srcDir/someOtherDir/file1.file',
-            '/srcDir/someOtherDir/file2.file',
-        ]
-    },
+    checkPath: { },
+    find: { },
     match: { }
 };
-answers.match[path.join('/srcDir', '**')] = [
+answers.checkPath[path.normalize('/srcDir')] = true;
+answers.find[path.normalize('/srcDir')] = [
+    '/srcDir',
+    '/srcDir/someOtherDir',
+    '/srcDir/someOtherDir/file1.file',
+    '/srcDir/someOtherDir/file2.file',
+];
+answers.match['**'] = [
     '/srcDir/someOtherDir/file1.file',
     '/srcDir/someOtherDir/file2.file',
 ];

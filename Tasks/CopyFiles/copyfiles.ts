@@ -2,7 +2,7 @@ import fs = require('fs');
 import path = require('path');
 import tl = require('vsts-task-lib/task');
 
-tl.setResourcePath(path.join( __dirname, 'task.json'));
+tl.setResourcePath(path.join(__dirname, 'task.json'));
 
 // contents is a multiline input containing glob patterns
 let contents: string[] = tl.getDelimitedInput('Contents', '\n', true);
@@ -22,6 +22,7 @@ let matchedFiles: string[] = matchedPaths.filter((path: string) => !tl.stats(pat
 
 // copy the files to the target folder
 console.log(tl.loc('FoundNFiles', matchedFiles.length));
+
 if (matchedFiles.length > 0) {
     // clean target folder if required
     if (cleanTargetFolder) {
