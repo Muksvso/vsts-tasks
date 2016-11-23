@@ -217,6 +217,28 @@ describe('CopyFiles L0 Suite', function () {
         done();
     });
 
+    it('roots patterns', (done: MochaDone) => {
+        this.timeout(1000);
+
+        let testPath = path.join(__dirname, 'L0rootsPatterns.js');
+        let runner: mocktest.MockTestRunner = new mocktest.MockTestRunner(testPath);
+        runner.run();
+
+        assert(
+            runner.succeeded,
+            'should have succeeded');
+        assert(
+            runner.stdOutContained(`copying ${path.normalize('/srcDir/someOtherDir/file1.file')} to ${path.normalize('/destDir/someOtherDir/file1.file')}`),
+            'should have copied file1');
+        assert(
+            runner.stdOutContained(`copying ${path.normalize('/srcDir/someOtherDir/file2.file')} to ${path.normalize('/destDir/someOtherDir/file2.file')}`),
+            'should have copied file2');
+        assert(
+            runner.stdOutContained(`copying ${path.normalize('/srcDir/someOtherDir2/file2.file')} to ${path.normalize('/destDir/someOtherDir2/file2.file')}`),
+            'should have copied file1');
+        done();
+    });
+
     if (process.platform == 'win32') {
         it('overwrites readonly', (done: MochaDone) => {
             this.timeout(1000);
