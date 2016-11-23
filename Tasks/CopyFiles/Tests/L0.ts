@@ -127,67 +127,67 @@ describe('CopyFiles L0 Suite', function () {
     //     done();
     // });
 
-    // it('fails if target file is a directory', (done: MochaDone) => {
-    //     this.timeout(1000);
+    it('fails if target file is a directory', (done: MochaDone) => {
+        this.timeout(1000);
 
-    //     let testPath = path.join(__dirname, 'L0failsIfTargetFileIsDir.js');
-    //     let runner: mocktest.MockTestRunner = new mocktest.MockTestRunner(testPath);
-    //     runner.run();
+        let testPath = path.join(__dirname, 'L0failsIfTargetFileIsDir.js');
+        let runner: mocktest.MockTestRunner = new mocktest.MockTestRunner(testPath);
+        runner.run();
 
-    //     assert(runner.failed, 'should have failed');
-    //     assert(runner.createdErrorIssue('Error: loc_mock_TargetIsDir'), 'should have created error issue');
-    //     done();
-    // });
+        assert(runner.failed, 'should have failed');
+        assert(runner.createdErrorIssue('Error: loc_mock_TargetIsDir'), 'should have created error issue');
+        done();
+    });
 
-    // it('skips if exists', (done: MochaDone) => {
-    //     this.timeout(1000);
+    it('skips if exists', (done: MochaDone) => {
+        this.timeout(1000);
 
-    //     let testPath = path.join(__dirname, 'L0skipsIfExists.js');
-    //     let runner: mocktest.MockTestRunner = new mocktest.MockTestRunner(testPath);
-    //     runner.run();
+        let testPath = path.join(__dirname, 'L0skipsIfExists.js');
+        let runner: mocktest.MockTestRunner = new mocktest.MockTestRunner(testPath);
+        runner.run();
 
-    //     assert(
-    //         runner.succeeded,
-    //         'should have succeeded');
-    //     assert(
-    //         runner.stdOutContained(`creating path: /destDir`),
-    //         'should have mkdirP destDir');
-    //     assert(
-    //         runner.stdOutContained(`creating path: ${path.join('/destDir', 'someOtherDir')}`),
-    //         'should have mkdirP someOtherDir');
-    //     assert(
-    //         !runner.stdOutContained(`copying /srcDir/someOtherDir/file1.file to ${path.join('/destDir', 'someOtherDir', 'file1.file')}`),
-    //         'should not have copied file1');
-    //     assert(
-    //         runner.stdOutContained(`copying /srcDir/someOtherDir/file2.file to ${path.join('/destDir', 'someOtherDir', 'file2.file')}`),
-    //         'should have copied file2');
-    //     done();
-    // });
+        assert(
+            runner.succeeded,
+            'should have succeeded');
+        assert(
+            runner.stdOutContained(`creating path: ${path.normalize('/destDir')}`),
+            'should have mkdirP destDir');
+        assert(
+            runner.stdOutContained(`creating path: ${path.normalize('/destDir/someOtherDir')}`),
+            'should have mkdirP someOtherDir');
+        assert(
+            !runner.stdOutContained(`copying ${path.normalize('/srcDir/someOtherDir/file1.file')} to ${path.normalize('/destDir/someOtherDir/file1.file')}`),
+            'should not have copied file1');
+        assert(
+            runner.stdOutContained(`copying ${path.normalize('/srcDir/someOtherDir/file2.file')} to ${path.normalize('/destDir/someOtherDir/file2.file')}`),
+            'should have copied file2');
+        done();
+    });
 
-    // it('overwrites if specified', (done: MochaDone) => {
-    //     this.timeout(1000);
+    it('overwrites if specified', (done: MochaDone) => {
+        this.timeout(1000);
 
-    //     let testPath = path.join(__dirname, 'L0overwritesIfSpecified.js');
-    //     let runner: mocktest.MockTestRunner = new mocktest.MockTestRunner(testPath);
-    //     runner.run();
+        let testPath = path.join(__dirname, 'L0overwritesIfSpecified.js');
+        let runner: mocktest.MockTestRunner = new mocktest.MockTestRunner(testPath);
+        runner.run();
 
-    //     assert(
-    //         runner.succeeded,
-    //         'should have succeeded');
-    //     assert(
-    //         runner.stdOutContained(`creating path: /destDir`),
-    //         'should have mkdirP destDir');
-    //     assert(
-    //         runner.stdOutContained(`creating path: ${path.join('/destDir', 'someOtherDir')}`),
-    //         'should have mkdirP someOtherDir');
-    //     assert(
-    //         runner.stdOutContained(`copying /srcDir/someOtherDir/file1.file to ${path.join('/destDir', 'someOtherDir', 'file1.file')}`),
-    //         'should have copied file1');
-    //     assert(
-    //         runner.stdOutContained(`copying /srcDir/someOtherDir/file2.file to ${path.join('/destDir', 'someOtherDir', 'file2.file')}`),
-    //         'should have copied file2');
-    //     done();
-    // });
+        assert(
+            runner.succeeded,
+            'should have succeeded');
+        assert(
+            runner.stdOutContained(`creating path: ${path.normalize('/destDir')}`),
+            'should have mkdirP destDir');
+        assert(
+            runner.stdOutContained(`creating path: ${path.normalize('/destDir/someOtherDir')}`),
+            'should have mkdirP someOtherDir');
+        assert(
+            runner.stdOutContained(`copying ${path.normalize('/srcDir/someOtherDir/file1.file')} to ${path.normalize('/destDir/someOtherDir/file1.file')}`),
+            'should have copied file1');
+        assert(
+            runner.stdOutContained(`copying ${path.normalize('/srcDir/someOtherDir/file2.file')} to ${path.normalize('/destDir/someOtherDir/file2.file')}`),
+            'should have copied file2');
+        done();
+    });
 
     it('cleans if specified', (done: MochaDone) => {
         this.timeout(1000);
