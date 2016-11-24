@@ -23,7 +23,7 @@ answers.find[path.normalize('/srcDir')] = [
 ];
 runner.setAnswers(answers);
 runner.registerMockExport('stats', (itemPath: string): any => {
-    console.log('stats ' + itemPath);
+    console.log('##vso[task.debug]stats ' + itemPath);
     switch (itemPath) {
         case path.normalize('/srcDir/someOtherDir'):
         case path.normalize('/destDir/someOtherDir'):
@@ -43,7 +43,7 @@ runner.registerMockExport('stats', (itemPath: string): any => {
 
 // override fs.chmodSync. it is the only fs function called by copyfiles.
 (fs as any).chmodSync = (path: string, mode: number) => {
-    console.log(`chmodSync ${path} ${mode}`);
+    console.log(`##vso[task.debug]chmodSync ${path} ${mode}`);
 };
 runner.registerMock('fs', fs);
 

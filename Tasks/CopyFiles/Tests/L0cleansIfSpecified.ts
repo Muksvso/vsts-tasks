@@ -25,7 +25,7 @@ answers.find[path.normalize('/srcDir')] = [
 answers.rmRF[path.join(path.normalize('/destDir'))] = { success: true };
 runner.setAnswers(answers);
 runner.registerMockExport('stats', (itemPath: string) => {
-    console.log('stats ' + itemPath);
+    console.log('##vso[task.debug]stats ' + itemPath);
     switch (itemPath) {
         case path.normalize('/srcDir'):
         case path.normalize('/srcDir/someOtherDir'):

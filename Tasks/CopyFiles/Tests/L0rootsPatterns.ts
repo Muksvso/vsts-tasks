@@ -29,7 +29,7 @@ answers.find[path.normalize('/srcDir')] = [
 ];
 runner.setAnswers(answers);
 runner.registerMockExport('stats', (itemPath: string) => {
-    console.log('stats ' + itemPath);
+    console.log('##vso[task.debug]stats ' + itemPath);
     switch (itemPath) {
         case path.normalize('/srcDir/someOtherDir/file1.file'):
         case path.normalize('/srcDir/someOtherDir/file2.file'):
